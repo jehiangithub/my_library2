@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:my_library/page/changepassword_page.dart';
-import 'package:my_library/page/splashscreen_page.dart';
-import 'page/login_page.dart';
-import 'page/home.dart';
+import './launcher.dart';
+import './login.dart';
+import './landing.dart';
 
-void main() => runApp(MaterialApp(home: SplashScreenPage()));
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  final routes = <String, WidgetBuilder>{
-    SplashScreenPage.tag: (context) => SplashScreenPage(),
-    LoginPage.tag: (context) => LoginPage(),
-    Home.tag: (context) => Home(),
-    ChangePasswordPage.tag: (context) => ChangePasswordPage(),
-  };
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Kodeversitas',
+      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
+        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: 'Nunito',
       ),
-      home: LoginPage(),
-      routes: routes,
+      home: LauncherPage(),
+      routes: <String, WidgetBuilder>{
+        '/login': (BuildContext context) => new LoginPage(),
+        '/landing': (BuildContext context) => new LandingPage(),
+      },
     );
   }
 }

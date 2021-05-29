@@ -1,4 +1,5 @@
-import 'package:my_library/data/itemproductfilter.dart';
+
+import 'itemproductfilter.dart';
 
 class ItemProduct {
   final String name;

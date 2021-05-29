@@ -1,21 +1,22 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:my_library/data/userdetail.dart';
-import 'package:my_library/dbhelpers.dart';
-import 'package:my_library/models/booksearch.dart';
-import 'package:my_library/models/mybook_model.dart';
-import 'package:my_library/page/detail_page.dart';
 import 'package:sqflite/sqflite.dart';
+import 'booksearch.dart';
+import 'dbhelpers.dart';
+import 'detail_page.dart';
+import 'itemfilter.dart';
+import 'itemproduct.dart';
+import 'itemproductfilter.dart';
+import 'mybook_model.dart';
 import 'scan_page.dart';
 import 'notification_page.dart';
 import 'setting_page.dart';
 import 'profile_page.dart';
-import 'package:my_library/data/itemproductfilter.dart';
-import 'package:my_library/data/itemproduct.dart';
-import 'package:my_library/data/itemfilter.dart';
-import 'login_page.dart';
 import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'userdetail.dart';
 
 class BerandaPage extends StatefulWidget {
   BerandaPage({Key key}) : super(key: key);
@@ -57,9 +58,8 @@ class _BerandaPageState extends State<BerandaPage> {
   _logOut() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('slogin', false);
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => LoginPage()),
-            (Route<dynamic> route) => false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
   }
 
   PageController pageController;

@@ -1,35 +1,40 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:my_library/page/login_page.dart';
+import 'package:flutter/services.dart';
+import 'dart:async';
+import './landing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import './login.dart';
 
-class SplashScreenPage extends StatefulWidget {
-  static String tag = 'splashscreen_page';
+class LauncherPage extends StatefulWidget {
   @override
-  _SplashScreenPageState createState() => _SplashScreenPageState();
+  _LauncherPageState createState() => new _LauncherPageState();
 }
 
-class _SplashScreenPageState extends State<SplashScreenPage> {
-
+class _LauncherPageState extends State<LauncherPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    starSplashScreen();
+    startLaunching();
   }
 
-  starSplashScreen() async{
-    var duration = const Duration(seconds: 5);
-    return Timer(duration,(){
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_){
-          return LoginPage();
-        })
-      );
+  startLaunching() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool slogin;
+    slogin = prefs.getBool('slogin') ?? false;
+
+    var duration = const Duration(seconds: 3);
+    return new Timer(duration, () {
+      Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (_) {
+        return slogin ? new LandingPage() : new LoginPage();
+      }));
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color(0xfffbb448),
+    ));
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
-import 'package:my_library/page/home.dart';
+
+import 'landing.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({Key key}) : super(key: key);
@@ -13,7 +15,7 @@ class NotificationPage extends StatelessWidget {
             icon: Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Home()));
+                  MaterialPageRoute(builder: (context) => LandingPage()));
             },
           ),
           title: Text("Notification"),

@@ -5,7 +5,7 @@ import 'package:flutter_beep/flutter_beep.dart';
 import 'package:qrcode/qrcode.dart';
 import 'package:torch_compat/torch_compat.dart';
 
-import 'package:my_library/barcode_reader_overlay_painter.dart';
+import 'barcode_reader_overlay_painter.dart';
 
 class BarcodeReaderPage extends StatefulWidget {
   final showBorder;

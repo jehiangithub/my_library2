@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_library/page/detail_page.dart';
 
+import 'detail_page.dart';
 class MyBook extends StatefulWidget {
   MyBook({Key key}) : super(key: key);
   @override

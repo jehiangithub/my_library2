@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_library/dbhelpers.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:my_library/data/userdetail.dart';
+
+import 'dbhelpers.dart';
+import 'userdetail.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

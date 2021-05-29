@@ -44,7 +44,8 @@ library barras;
 
 import 'package:flutter/material.dart';
 
-import 'page/scan_page.dart';
+import 'scan_page.dart';
+
 
 class Barras {
   /// Opens the barcode scanning page and return scanned data or null if the

@@ -1,46 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'booking_page.dart' as booking;
 import 'beranda_page.dart' as beranda;
 import 'article_page.dart' as article;
 
-class Home extends StatefulWidget {
-  static String tag = 'home';
+class LandingPage extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _LandingPageState createState() => new _LandingPageState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _LandingPageState extends State<LandingPage> with SingleTickerProviderStateMixin {
   int _bottomNavCurrentIndex = 0;
   List<Widget> _container = [new beranda.BerandaPage(), new booking.BookingPage(), new article.ArticlePage()];
 
-  //TabController controller;
-
   @override
   void initState() {
-    //controller = TabController(vsync: this, length: 3);
     super.initState();
   }
 
-  /*
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  _logOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('slogin', false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
   }
-  */
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _container[_bottomNavCurrentIndex],
-      /*
-      TabBarView(controller: controller,children: <Widget>[
-        beranda.BerandaPage(),
-        booking.BookingPage(),
-        article.ArticlePage(),
-      ],),
-      */
-      bottomNavigationBar: new BottomNavigationBar(
+    return new Scaffold(
+        body: _container[_bottomNavCurrentIndex],
+        bottomNavigationBar: new BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
           onTap: (index) {
             setState(() {
@@ -99,22 +88,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             ),
           ],
         ),
-      /*
-      Material(
-        color: Colors.white,
-        child: TabBar(controller: controller, tabs: <Widget>[
-        Tab(
-          icon: Icon(Icons.home,color: Colors.black,),child: Text("Home",style: TextStyle(color: Colors.black),)
-        ),
-        Tab(
-          icon: Icon(Icons.book,color: Colors.black,),child: Text("Booking",style: TextStyle(color: Colors.black),)
-        ),
-        Tab(
-          icon: Icon(Icons.article_outlined,color: Colors.black,),child: Text("Article",style: TextStyle(color: Colors.black),)
-        ),
-      ],),
-        ),
-        */
-    );
+        );
   }
 }
+/*
+RaisedButton(
+                    onPressed: () => _logOut(),
+                    color: Colors.white,
+                    child: const Text('Logout',
+                        style: TextStyle(fontSize: 18)),
+                  )
+*/

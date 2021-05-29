@@ -1,7 +1,7 @@
 
-import 'package:my_library/models/categorie_model.dart';
-import 'package:my_library/models/product_model.dart';
-import 'package:my_library/models/trending_productmodel.dart';
+import 'categorie_model.dart';
+import 'product_model.dart';
+import 'trending_productmodel.dart';
 
 List<TrendingProductModel> getTrendingProducts() {
   List<TrendingProductModel> trendingProducts = new List<TrendingProductModel>();

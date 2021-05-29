@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_library/data/detailarticle.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'detailarticle.dart';
 
 class ArticlePage extends StatefulWidget {
   const ArticlePage({Key key}) : super(key: key);

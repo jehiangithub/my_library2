@@ -1,8 +1,10 @@
+
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:my_library/data/userdetail.dart';
+
+import 'userdetail.dart';
 
 class DbHelper {
   static DbHelper _dbHelper;
