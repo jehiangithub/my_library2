@@ -1,254 +1,125 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:my_library/api_service.dart';
+import 'response_barang_model.dart';
 
-class DetailPage extends StatelessWidget {
-  final String apiUrl = "https://jsonplaceholder.typicode.com/photos/";
+class DetailPage extends StatefulWidget {
+  final Datum data;
+  DetailPage({this.data});
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
 
-  Future<List<dynamic>> fetchPhotos() async {
-    var result = await http.get(apiUrl);
-    // return json.decode(result.body)['results'];
-    return json.decode(result.body);
-  }
+class _DetailPageState extends State<DetailPage> {
+  int _id;
+  Datum data;
+  TextEditingController _judul,
+      _isbn,
+      _idkategori,
+      _penerbit,
+      _pengarang,
+      _jumlah;
+  ApiService service = ApiService();
 
-  String _name(dynamic photos) {
-    // return user['name']['title'] + " " + user['name']['first'] + " " +  user['name']['last'];
-    return photos['title'];
-  }
+  @override
+  void initState() {
+    super.initState();
+    if (widget.data != null) {
+      //_isUpdate = true;
+      _id = widget.data.id;
 
-  String _url(dynamic photos) {
-    return photos['url'];
+      _judul = TextEditingController(text: widget.data.judul);
+      _jumlah = TextEditingController(text: widget.data.jumlah.toString());
+      _isbn = TextEditingController(text: widget.data.isbn.toString());
+      _idkategori =
+          TextEditingController(text: widget.data.idKategori.toString());
+      _penerbit = TextEditingController(text: widget.data.penerbit);
+      _pengarang = TextEditingController(text: widget.data.pengarang);
+    } else {
+      _judul = TextEditingController();
+      _jumlah = TextEditingController();
+      _isbn = TextEditingController();
+      _idkategori = TextEditingController();
+      _penerbit = TextEditingController();
+      _pengarang = TextEditingController();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Hero(
-                    tag: _url,
-                    child: Image.network(
-                        'https://2.bp.blogspot.com/-vYY0BNbQh_4/WdrjFLQWtGI/AAAAAAAADsc/p2fuzPuzIbM7n4fYoc0WnycDZqHozZjKACEwYBhgL/s1600/Cover%2BLaporan%2BKinerja%2BFSH%2B2016.jpg'),
-                  ),
-                  SizedBox(height: 15.0),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Stack(
-                      children: <Widget>[
-                        Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 5),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Dhaka',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 10,),
-                                Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'No ISBN',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 40.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            ':',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '12345',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Kategori',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 39.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            ':',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Sains',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Pengarang',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            ':',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Bambang',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Penerbit',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 41.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            ':',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'NusaPedia',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Jumlah Buku',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            ':',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5.0, bottom: 5),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '100',
-                                            style: TextStyle(fontSize: 15),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )),
-                      ],
-                    ),
-                  )
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Detail'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              //Image.network("https://my-restap.herokuapp.com/data_cover/${data.detail}"),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: TextFormField(
+                  controller: _judul,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Judul Buku'),
+                  enabled: false,
+                ),
               ),
-            ),
-            Padding(
-                padding: EdgeInsets.only(top: 12.0),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ))
-          ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: TextFormField(
+                  controller: _jumlah,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Jumlah Buku'),
+                  enabled: false,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: TextFormField(
+                  controller: _isbn,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'No ISBN'),
+                  enabled: false,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: TextFormField(
+                  controller: _idkategori,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Kategori'),
+                  enabled: false,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: TextFormField(
+                  controller: _penerbit,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Nama Penerbit'),
+                  enabled: false,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: TextFormField(
+                  controller: _pengarang,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nama Pengarang'),
+                  enabled: false,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

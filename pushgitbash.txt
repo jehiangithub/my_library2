@@ -1,0 +1,9 @@
+cara push di git bash (klik kanan di folder project lalu git bash)
+command nya:
+cat ~/.ssh/jehiangithub.pub
+eval "$(ssh-agent -s)"
+ssh-agent
+ssh-add /c/Users/Lenovo/.ssh/jehiangithub
+ssh-add -l -E sha256
+ssh -T git@github.com
+git push -u origin master

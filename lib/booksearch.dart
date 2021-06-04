@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_library/landing.dart';
 
-import 'beranda_page.dart';
 import 'book_data.dart';
 
 class BookItemsSearch extends SearchDelegate<BookItem> {
@@ -20,7 +20,7 @@ class BookItemsSearch extends SearchDelegate<BookItem> {
       icon: Icon(Icons.arrow_back),
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BerandaPage()));
+            context, MaterialPageRoute(builder: (context) => (LandingPage())));
       },
     );
   }
