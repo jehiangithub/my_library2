@@ -1,26 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:lipsum/lipsum.dart' as lipsum;
 
-class DetailArticlePage extends StatelessWidget {
+import 'response_article_model.dart';
+import 'api_article.dart';
 
-final String apiUrl = "https://jsonplaceholder.typicode.com/photos/";
+class DetailArticlePage extends StatefulWidget {
+  final Datum data;
+  DetailArticlePage({this.data});
+  @override
+  _DetailArticlePageState createState() => _DetailArticlePageState();
+}
 
-  Future<List<dynamic>> fetchPhotos() async {
-    var result = await http.get(apiUrl);
-    // return json.decode(result.body)['results'];
-    return json.decode(result.body);
-  }
+class _DetailArticlePageState extends State<DetailArticlePage> {
+  int _id;
+  Datum data;
+  TextEditingController _judul, _isi, _idkategori, _sampul;
+  ApiArticle service = ApiArticle();
 
-  String _name(dynamic photos) {
-    // return user['name']['title'] + " " + user['name']['first'] + " " +  user['name']['last'];
-    return photos['title'];
-  }
+  @override
+  void initState() {
+    super.initState();
+    if (widget.data != null) {
+      //_isUpdate = true;
+      _id = widget.data.id;
 
-  String _url(dynamic photos) {
-    return photos['url'];
+      _judul = TextEditingController(text: widget.data.judul);
+      _isi = TextEditingController(text: widget.data.isi);
+    } else {
+      _judul = TextEditingController();
+      _isi = TextEditingController();
+    }
   }
 
   @override
@@ -35,117 +44,37 @@ final String apiUrl = "https://jsonplaceholder.typicode.com/photos/";
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Hero(
-                    tag: _name,
+                    tag: _sampul,
                     child: Image.network(
                         'https://2.bp.blogspot.com/-vYY0BNbQh_4/WdrjFLQWtGI/AAAAAAAADsc/p2fuzPuzIbM7n4fYoc0WnycDZqHozZjKACEwYBhgL/s1600/Cover%2BLaporan%2BKinerja%2BFSH%2B2016.jpg'),
                   ),
                   SizedBox(height: 10.0),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Loremipsum',
-                          style: TextStyle(
-                              fontSize: 22.0, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 10.0),
-                        Row(
-                          children: [
-                            Icon(Icons.date_range),
-                            Text("20 November 2021")
-                          ],
-                        ),
-                        SizedBox(height: 20.0),
-                        Text(
-                          lipsum.createParagraph(numParagraphs: 3),
-                          style: TextStyle(fontSize: 18),
-                        )
-                      ],
-                    ),
-                  )
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: TextFormField(
+                  controller: _judul,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Judul Article'),
+                  enabled: false,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: TextFormField(
+                  controller: _isi,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Isi Article'),
+                  enabled: false,
+                ),
+              ),
                 ],
               ),
             ),
-            Padding(
-                padding: EdgeInsets.only(top: 12.0),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ))
           ],
         ),
       ),
     );
-    /*
-    return Container(
-      child: FutureBuilder<dynamic>(
-          future: fetchPhotos(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              // print(_age(snapshot.data[0]));
-              return PageView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Stack(
-                          children: [
-                            SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Hero(
-                                      tag: Text(_name(snapshot.data[index])),
-                                      child: Image.network(_url(snapshot.data[index])),
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Column(
-                                      children: [
-                                        Text(_name(snapshot.data[index]), style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.w500),),
-                                        SizedBox(height: 10.0),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.date_range),
-                                          ],
-                                        ),
-                                        SizedBox(height: 20.0),
-                                        Text(
-                                          lipsum.createParagraph(numParagraphs: 3),
-                                          style: TextStyle(fontSize: 18),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 12.0),
-                              child: IconButton(
-                                  icon: Icon(
-                                      Icons.arrow_back,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: (){
-                                    Navigator.pop(context);
-                                  },
-                              )
-                            )
-                          ],
-                        );
-                  });
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
-    );
-    */
   }
 }

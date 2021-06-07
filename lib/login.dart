@@ -205,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                         gradient: LinearGradient(
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
-                            colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                            colors: [Color(0xFF4B48FB), Color(0xFF2B83F7)])),
                     child: Text(
                       'Login',
                       style: TextStyle(fontSize: 20, color: Colors.white),
