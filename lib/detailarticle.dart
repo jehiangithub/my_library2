@@ -36,42 +36,45 @@ class _DetailArticlePageState extends State<DetailArticlePage> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        appBar: AppBar(
+        title: Text('Detail'),
+      ),
         backgroundColor: Colors.white,
         body: Stack(
           children: [
             SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Hero(
-                    tag: _sampul,
-                    child: Image.network(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.network(
                         'https://2.bp.blogspot.com/-vYY0BNbQh_4/WdrjFLQWtGI/AAAAAAAADsc/p2fuzPuzIbM7n4fYoc0WnycDZqHozZjKACEwYBhgL/s1600/Cover%2BLaporan%2BKinerja%2BFSH%2B2016.jpg'),
-                  ),
-                  SizedBox(height: 10.0),
-                  Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: TextFormField(
-                  controller: _judul,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Judul Article'),
-                  enabled: false,
+                    SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0, top: 5, left: 10, right: 10),
+                      child: TextFormField(
+                        controller: _judul,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Judul Article'),
+                        enabled: false,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0, top: 5, left: 10, right: 10),
+                      child: TextFormField(
+                        controller: _isi,
+                        maxLines: null,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Isi Article'),
+                        enabled: false,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: TextFormField(
-                  controller: _isi,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Isi Article'),
-                  enabled: false,
-                ),
-              ),
-                ],
-              ),
-            ),
           ],
         ),
       ),

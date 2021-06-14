@@ -77,6 +77,6 @@ class Datum {
         "cover": cover,
         "detail": detail,
         "jumlah": jumlah,
-        "created_at": createdAt.toIso8601String(),
+        "created_at": "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
       };
 }
